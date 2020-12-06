@@ -1,0 +1,112 @@
+#page-container {width: 1100px;margin: auto}
+html, body {margin: 0;padding: 0;}
+
+/* .hidden {
+    display: none;
+} */
+#main-nav { width: auto; height: 50px; background-image: url(../images/header.png); background-repeat: no-repeat; background-size: 300px 50px; margin-left: 80px;}
+#main-nav ul { list-style:none; margin: 0; padding: 0px; }
+#main-nav { padding-left: 11px; }
+#main-nav li { float: right; }
+
+#main-nav li#REPORT,
+#main-nav li#REPORT a { width: 200px; }
+#main-nav li#DATA,
+#main-nav li#DATA a { width: 200px; }
+#main-nav li#TEST,
+#main-nav li#TEST a { width: 90px; }
+
+/* body.REPORT li#REPORT,
+body.REPORT li#REPORT a,
+body.DATA li#DATA,
+body.DATA li#DATA a,
+body.TEST li#TEST,
+body.TEST li#TEST a{
+    background-position: 0 -100px;
+} */
+
+#main-nav a {
+    color: #c9c9c9;
+    text-decoration: none;
+}
+#main-nav a:hover {
+    color: #db6d16;
+}
+
+#header {
+    height: 305px;
+    background: url(../images/title.jpg) #db6d16;
+    background-repeat: no-repeat;
+    background-size: 1100px 305px;
+}
+#content {
+    margin: auto;
+    padding: 20px 100px;
+    line-height: 20px;
+}
+#footer {
+    clear: both;
+    height: 66px;
+    font-family: Tahoma, Arial, Helvetica, Sans-serif;
+    font-size: 10px;
+    color: #c9c9c9;
+    border-top: 1px solid #efefef;
+    padding: 13px 25px;
+    line-height: 18px;
+}
+#footer #altnav {
+    width: 350px;
+    float: right;
+    text-align: right;
+}
+#footer a {
+    color: #c9c9c9;
+    text-decoration: none;
+}
+#footer a:hover {
+    color: #db6d16;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+}
+#content h2 {
+    font-family: Sans-serif;
+    margin: 0;
+    padding: 0px;
+    padding-bottom: 15px;
+}
+#content p {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 35px;
+    line-height: 40px;
+}
+body {
+    font-family: Times, Georgia, Sans-serif;
+    font-size: 20px;
+    color: #666666;
+    background: #ffffff;
+}
+figure {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+img {
+    margin: auto;
+    max-width: 500px;
+    max-height: 300px;
+}
+
+figcaption {
+    font: sans-serif;
+    padding: 3px;
+    text-align: center;
+}
+
+
