@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-type" content="text/html;  charset=UTF-8" />
         <title>Audio Sensing</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Language" content="en-us"  />
         <meta http-equiv="imagetoolbar" content="no"  />
         <meta name="MSSmartTagsPreventParsing"  content="true" />
@@ -11,48 +12,120 @@
         <meta name="author" content="gyz"  />
         <style type="text/css"  media="all">@import  "css/master.css";</style>
         <link rel="shortcut icon" href="favicon.ico">
+        <METAHTTP-EQUIV="Pragma"CONTENT="no-cache">
+        <METAHTTP-EQUIV="Cache-Control"CONTENT="no-cache">
+        <METAHTTP-EQUIV="Expires"CONTENT="0">
+        <!-- <link rel="stylesheet" type="text/css" href="css/scrolltrack.css"> -->
+        <script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="js/scrolltrack.js"></script>
     </head>
     <body>
-        <div id="page-container">
+
+        <div class='submenu'>
+            <div style="margin-left: 0%;">
+                <div class="subnav"></div>
+            </div>
+        </div>
+
+        <div id="page-container" class='item'>
             <div id="main-nav">
                 <ul>
                     <li id="TEST"><a href="https://google.com" ><font size = 5>Test</font></a></li> 
                     <li id="DATA"><a href="https://github.com/guanyu-zhang/ee382v_final_proj" ><font size = 5>Data</font></a></li> 
                     <li id="REPORT"><a href="https://guanyu-zhang.github.io/audio_sensing_blog/" ><font size = 5>Report</font></a></li>
                 </ul>
- 
             </div>
             <div  id="header">
             </div>
 
-            <div  id="content">
-                    <p> <em><i>Contributers:</i></em>&nbsp; Dawei Liang, Guanyu Zhang</p> <br/><br/>
+            <div  id="content" class='content'>
+                    <p> <em><i>Contributors:</i></em>&nbsp; Dawei Liang, Guanyu Zhang</p>
+                    <br/><br/>
+                    <div class="item">
                     <h2>Backgrounds and Motivations</h2>
-
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>Human speech collected from commercial sensors can be insightful for applications such as automated social diary [1] or analysis of people’s social interaction behaviors [2]. However, reliable modeling of the speech data has to rely on solid ground truth of the data. A common problem in real-world collected speech is the presence of ambiguous speech snippets or mixture of voice within the same instance. The situation is relatively mild in voice classification studies with large-scale online datasets [3], but it is more significant in naturalistic studies where the ‘clean’ speech is smaller with a much higher proportion of the outliers and overlap speech. Hence, our project aims to reduce such uncertainty for audio classification with the real-life collected data.
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        Human speech collected from commercial sensors can be insightful for applications such as 
+                        automated social diary [1] or analysis of people’s social interaction behaviors [2]. 
+                        Reliable modeling of the speech data relies on solid ground truth of annotation. However, a common
+                        problem in real-world speech annotation is that the speech quality varies a lot due to far-field
+                        recording and lack of prior knowledge of the speakers. The situation is relatively mild in voice
+                        classification studies with large-scale online datasets where labels can be obtained from
+                        clean speech [3], but it is more significant in naturalistic studies where annotators can only
+                        infer the events purely by listening back the recordings. When the speech instances are of
+                        high uncertainty, for example, consisting of two similar speakers or mixtures of far-filed
+                        conversations and virtual vocal activities, the annotators have to ‘guess’ the ground truth
+                        labels of the data. In such cases, it will be helpful to develop a tool that can help researchers
+                        better identify such instances so that they can take extra steps for better annotation of the
+                        data or incorporate the factors of such uncertainty in their studies. Hence, our project aims to
+                        explore such a tool that can automatically discover speech instances of potentially higher
+                        uncertainty from the real-world collected dataset.
                     </p>
 
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                        Considering that the annotation process of the human speech data is time-consuming and is not always reliable, especially if the target voice (speech data from the target speakers) is overlapped with the background voice or if the target speakers have similar voice patterns as other speakers. Through our project we hope to find a way to simplify the annotation process and build a model to approach the manual classification results. We will see in the following part that prior efforts of overlapped speech detection do not take into account the target speech. They were aimed to tell whether there is overlapped speech, while our goal is to tell whether the overlaps are composed of the target speech or not.
+                        Generally speaking, speech segments can be relatively easier to discriminate if the segments
+                        contain only a single speaker or pure non-vocal backgrounds such as sounds of the home
+                        appliances. However, the annotation becomes much more difficult to human listeners when
+                        1) speech of different speakers is overlapped with each other, 2) different speakers have
+                        similar voice patterns, or 3) the conversation happens in far field with respect to the sensing
+                        device such that the actual voice is mixed with the backgrounds. Hence, our project aims to
+                        build a model to determine speech instances of such types from the dataset. It is noted that
+                        there have been prior efforts of overlapped speech detection [4, 5]. However, we differ from
+                        the prior approaches in that we consider the target speaker in our modeling. In wearable
+                        sensing, for example, we typically care more about speech of the wearers, and therefore
+                        when we determine the speech mixtures we are referring to mixture between the target
+                        speaker and the vocal backgrounds rather than overlapped speech segments of universal
+                        speakers. In other words, the prior work aims to discover general types of overlapped speech,
+                        while our goal is to discover only overlapped speech that contains the target speakers.
                     </p>
+                    </div>
                     <br/><br/>
+
+                    <div class="item">
+                    <h2>Related Work</h2>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        Prior work of target speech detection typically does not incorporate much on the outliers and
+                        the mixed speech segments of the data [6]. However, annotation error due to uncertain
+                        instances may bring negative effects to the model performance and less reliability of reported
+                        results, especially in the case of intensive conversations. There has been prior work discussing
+                        sound classification with mixed background or components. For example, in [7] the
+                        researchers attempted to classify sound with different environmental backgrounds. Neural
+                        networks have also been shown to work well for speaker or component counting within the
+                        sound segments [8]. There have also been prior work discussing mixed speech detection of
+                        general types based on statistical or deep learning methods [4, 5]. However, to the best of
+                        our knowledge, there is still no prior work discussing the determination of uncertain sound
+                        instances from real-world audio recordings to help better annotation and characterization of
+                        the collected data. Hence, we hope to explore a feasible solution to this task.
+                    </p>
+                    </div>
+                    <br/><br/>
+
+                    <div class="item">
                     <h2>Descriptions and Dataset</h2>
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>The goal of our project is to build an easy yet reliable method for the determination of outliers and mixture speech in the speech sensing data. Mixture speech in our study is defined as a speech snippet containing voice elements from more than one speaker. The voice elements can either be separate or overlapped with each other. An outlier in our study is defined as a speech snippet that was not able to be annotated by human listeners where the voice pattern can be either ambiguous or similar to multiple speakers’ voice. This is typically caused by far-field recording of the sounds or speech generated by two simultaneous speakers with very similar voice, accent, and speaking style.
-                    </p>
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>We plan to use model-based methods as we have pre-labeled training and test sets for the development. Prior work has shown the capabilities of deep learning on overlap speech counting [4], or in general, overlap sound classification [5]. Hence, we plan to start with simple neural networks to see how it performs.
-                    </p>
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>The dataset we are going to use was originally obtained from a real-world data collection effort using commercial wearable smartwatch. 
-                        The data was collected in a naturalistic home environment, where people were instructed to perform some types of interactions. In total, we collected 41,973 seconds (11.7 hours) of audio recordings from 7 groups of participants for this study.
-                        Due to privacy protection reasons, we only have access to spatial acoustic features (MFCC and loudness) and deep embedding features extracted from a pre-trained neural network. Also, due to the resource limit, we only accessed a subset of the dataset for our model development and validation.  
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        The dataset we are going to use was originally obtained from a real-world data collection
+                        effort using commercial wearable smartwatch. The data was collected in a naturalistic home
+                        environment, where people were instructed to perform some types of interactions. In total,
+                        we collected 41,973 seconds (11.7 hours) of audio recordings from 7 groups of participants
+                        for this study. Due to privacy protection reasons, we only have access to deep embedding
+                        features extracted from a pre-trained neural network. Also, due to the resource limit, we only
+                        accessed a subset of the dataset for our model development and validation.
                     </p>
                     <figure>
                         <img src='images/watch.jpg' alt='watch'>
-                        <figcaption>The Fossil smartwatch for our data collection</figcaption>
+                        <figcaption>Figure 1.&nbsp; The Fossil smartwatch for our data collection</figcaption>
                     </figure>
                     <br/>
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>The data was labeled by human labelers ahead of the study. It was categorized into 4 classes.
-                        Here we have four types of labels, the first type is pure speech from the smartwatch wearers. That is also what we refer as the target speakers. The second type is the background voice. It is basically voice from speakers other than the target speakers. The third and the fourth types are what we are going to filter from the dataset. The third type is segments of mixed voice of the target and non-target speakers. And the fourth type contains speech instances that are hard to identify by human listeners. Just as we showed in the previous slides, this is typically because the target and non-target speakers are too similar in voice, or if the conversation happens too far away that are not clear enough.
-                        However, due to the significant amount of original audio size and error of human inputs, the data may be only weakly labeled. The weak label characteristics affected our recognition performance, and we can see that in the following part.                    
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        The data was labeled by human labelers ahead of the study. It was categorized into 4 classes.
+                        The first type is pure speech from the smartwatch wearers. That is also what we refer as the
+                        target speakers in our study. The second type is the background voice. It is voice from
+                        speakers other than the target speakers. The third and the fourth types are what we are
+                        going to filter from the dataset. The third type is segments of mixed voice of the target and
+                        non-target speakers, and the fourth type contains speech instances that are hard to identify
+                        by human listeners (ambiguous speech). The typical reasons of the ‘ambiguous’ recordings
+                        can be that the target and non-target speakers are too similar in voice, or the conversation is
+                        captured too far away from the microphone such that it is not clear enough to be
+                        discriminated by listening back to the recordings. 
                     </p>
                     <figure>
                         <table>
@@ -66,24 +139,32 @@
                             </tr>
                          </table>
                     </figure>
-                    <figcaption>labels distribution</figcaption>
+                    <figcaption>Figure 2.&nbsp; Labels distribution</figcaption>
+                    </div>
                     <br/><br/><br/>
-                    <h2>Related Work</h2>
+
+                    <div class="item">
+                    <h2>Model Descriptions</h2>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    The overall picture of our work is to facilitate foreground speech detection with real-world collected audio data. Prior work of foreground speech detection typically does not focus much on the outliers and the mixed speech segments of the data [6]. However, they may bring uncertainty to the model performance, especially in the case of intensive conversations.  There has been prior work discussing sound classification with mixed background or components. For example, in [5] the researchers attempted to classify sound with different environmental backgrounds. Neural networks have also been shown to work well for speaker or component counting within the sound segments [4]. However, in general there is still limited work discussing the determination of such sound instances from real-world audio sensing data, and we hope to explore a feasible solution for our overall study.
+                        We tried two types of methods to determine the uncertain speech instances. The first method
+                        is a straightforward end-to-end classification. We tried a random forest, and a more
+                        advanced VGG-like neural network classifier [6]. The second method is different: Rather than
+                        obtaining the predicted labels from the classifiers, we directly examine the predicted
+                        probability from the classifiers. 
                     </p>
-                    <br/><br/>
-                    <h2>Models Description</h2>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    We tried two types of methods to determine the uncertain speech instances. The first method is a straight forward end-to-end classification. We tried a random forest, and a more advanced VGG-like NN classifier. The second method is actually a bit different. So rather than obtaining the predicted labels from the classifiers, we directly examine the predicted probability from the classifiers. 
-                    The VGG-S [7] NN classifier has the following structure:
+                        The VGG-like classifier has the following structure:
                     </p>
                     <p align='center' > <font size=3> Input => Conv1D[64] => Conv1D[128] => Conv1D[256] => Conv1D[512] => Dense[1024] => Dense[128] => Dense[1]</font>
-                    <br/><font size=3>*The numbers in the brackets are the number of filters for Conv layers and the size of outputs for Dense layers.</font>
+                    <br/><font size=3>*The values in the brackets are the number of filters for the convolutional layers / the size of outputs for the dense (fully connected) layers.</font>
                     </p>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                        In the training phase, everything is basically the same as before. We got training data and labels, and then we trained a classifier. But in the test phase, we can actually test the model with classes that it has never seen in the training phase. We determine the instances of such classes by thresholding the predicted probability or confidence levels from the classifier (Considering that the final output of the VGG-S NN is a scalar and there are three categories to be classified).
-                    This process is shown below.
+                        Our second method is not a direct classification. The process is shown below in Figure 3. In
+                        the training phase, everything is the same as a typical step for building a classifier. The
+                        classifier is fed with training data and labels. But in the test phase, we can test the model
+                        with classes that it has never seen in the training phase. We determine the instances of such
+                        classes by thresholding the predicted probability or confidence levels from the classifier
+                        outputs. 
                     </p>
                     <figure>
                         <table>
@@ -99,9 +180,13 @@
                             </tr>
                          </table>
                     </figure>
+                    <figcaption>Figure 3.&nbsp; Model Usage</figcaption>
                     <br/>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    In addition, we also do some enhancement for the input features. The first way is we get the running average of every few seconds of the frames. The second way is that we stack the frames, so that they can be image-like inputs. By doing so, the input instances can incorporate the temporal shape of the speech. 
+                        In addition, we also add some enhancement for the input features. The first way is to get the
+                        running average of every few seconds of the frames. The second way is to stack the frames
+                        so that they can be image-like inputs. By adding the enhancement, the input instances can
+                        incorporate the temporal shape of the speech.
                     </p>
                     <figure>
                         <table>
@@ -117,52 +202,218 @@
                             </tr>
                          </table>
                     </figure>
+                    <figcaption>Figure 4.&nbsp; Data Processing</figcaption>
+                    </div>
                     <br/><br/><br/>
+
+                    <div class="item">
                     <h2>Results</h2>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    We first examine how we can determine the speech mixtures from the dataset. As we can see, by using a NN classifier, it is possible to directly discover the mixed conversational segments from the dataset. Neural networks are generally performing better for this task.
+                        We first examine how we can determine the speech mixtures from the dataset. As we can see
+                        from Table 1, by using a neural network classifier, it is possible to directly discover the mixed
+                        conversational segments from the dataset in an end-to-end classification manner. Also,
+                        neural networks are generally performing better than the random forest for the mixed speech discovery.
                     </p>
-                    <figure>
-                        <img src='images/results_mixed_tab1.png' alt='mixture result 1'>
-                        <figcaption>Binary classification, background voice vs mixed (3-sec instance)</figcaption>
-                    </figure>
+                    <table class='table1' align="center">
+                        <tr>
+                          <th>Classifier</th>
+                          <th>Balanced Acc (%)</th>
+                          <th>Macro F1 (%)</th>
+                        </tr>
+                        <tr>
+                            <th>RF (n=100)</th>
+                            <th>67.66</th>
+                            <th>68.85</th>
+                        </tr>
+                        <tr>
+                            <th>RF (n=500)</th>
+                            <th>67.89</th>
+                            <th>69.78</th>
+                        </tr>
+                        <tr>
+                            <th>VGG-s</th>
+                            <th>71.97</th>
+                            <th>74.87</th>
+                        </tr>
+                    </table>
+                    <figure></figure>
+                    <figcaption>Table 1.&nbsp; Binary classification, background voice vs mixed (3-sec instance)</figcaption>
                     <br/>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    From the table above we can see that the mixed speech instances can be determined directly from the background voice by using end-to-end classification.
-                    We also know that NN classifiers tend to perform better for the classification.
+                        We further examine how the different types of input enhancement can change the
+                        performance. As we can see from Table 2, all types of feature enhancement can yield similar
+                        performance. Mean and variance features here mean to obtain the running average /
+                        variance of feature vectors across time. Interestingly, stacking the frames as image-like
+                        inputs does not help the network to better capture the temporal information in our task.
                     </p>
-                    <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    We further examine how the different types of input enhancement can change the performance. The general conclusion is, either type of feature enhancement can yield similar performance. It looks like stacking the frames doesn’t really help a lot.
-                    </p>
-                    <figure>
-                        <img src='images/results_mixed_tab2.png' alt='mixture result 2'>
-                        <figcaption>Binary classification with different input types, background vs mixed (3-sec instance)
-                        </figcaption>
-                    </figure>
+                    <table class='table1' align="center">
+                        <tr>
+                            <th>Input Feature Type</th>
+                            <th>RF (n=100)</th>
+                            <th>VGG -s</th>
+                        </tr>
+                        <tr>
+                            <th>Mean feature</th>
+                            <th>F1 68.85%; Acc 67.66%</th>
+                            <th>F1 74.87%; Acc 71.97%</th>
+                        </tr>
+                        <tr>
+                            <th>Variance feature</th>
+                            <th>F1 69.44%; Acc 67.35%</th>
+                            <th>F1 72.23%; Acc 69.37%</th>
+                        </tr>
+                        <tr>
+                            <th>Stacked 2D img</th>
+                            <th>-</th>
+                            <th>F1 73.73%; Acc 72.20%</th>
+                        </tr>
+                    </table>
+                    <figure></figure>
+                    <figcaption>Table 2.&nbsp; Binary classification with different input types, background vs mixed (3-sec instance)</figcaption>
                     <br/>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    The third part of the results is about how the input length of the speech segments can change the performance. The unit size of the segments is in 1 sec. As we can see, by increasing the size of the input speech segments, the classification performance generally goes up for both classifiers.
+                        The third part of the results is to show how the input length of the speech segments can
+                        change the performance. As shown in Figure 5, the unit size of the segments is in 1 sec. As we
+                        can see, by increasing the size of the input speech segments, the classification performance
+                        generally goes up for both classifiers. This is as expected since the classifiers can capture
+                        more distinct patterns between different sound types by incorporating sound information at
+                        a larger temporal scale. 
                     </p>
                     <figure>
                         <img src='images/results_mixed_tab3.png' alt='mixture result 3'>
-                        <figcaption>The relationship between temporal size and F1 score
+                        <figcaption>Figure 5.&nbsp; The relationship between temporal size and F1 score
                         </figcaption>
                     </figure>
                     <br/>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                        Then, we trained models to process speech data from the uncertain speakers. Here our main goal is to build a model that can classify the following three categories of speech data. The voice from the target speaker, the background voice (which is the same thing as the far-field vocal backgrounds  that we defined before) and the uncertain speech data (which contains different speakers or speakers with similar voice patterns). We first tried an end-to-end model (still used the VGG-S structure). However, the model did not perform well and we got a F1 score around 58% and the balanced accuracy is around 60%. We noticed that it might be difficult to directly classify the three categories but we found that if we use the model trained with only target speakers and background voice. The output of the three categories seems to show some specific pattern. As we can see in the table below. The output of target speakers is around 1, the output of background voice is around 0 and the output of uncertain voice is in the middle. That means speech instances of uncertain speakers may not be classified in an end-to-end approach, but can be determined by thresholding the output confidence of a voice classifier.
+                        Finally, we examined how the models can determine instances of uncertain sources. It is more
+                        challenging since we need to determine the uncertain speaker data from the well-labeled
+                        conversations, and the uncertain speech in fact contains a large proportion of components
+                        from the labeled speakers (just not able to be discriminated by human listeners). We first
+                        tried an end-to-end approach by using the neural network classifier. However, the model did
+                        not perform well, and we obtained a macro F1 score around 58% and the balanced accuracy
+                        around 60% for classifying the 3 classes (target speakers, non-target speakers, and uncertain
+                        speakers). Hence, we further proceeded with the second approach and trained the model
+                        only with data of the target speech and background voice. We then tested the model with all
+                        3 classes, including a new class of the uncertain speech. We conducted the tests for 5 times,
+                        and we reported the mean output confidence levels of the classifier for the 3 classes of data.
+                        As we can see in Table 3 below, the output confidence levels of the classifier for the target
+                        speaker data is mostly closer to 1. The output confidence levels for the background voice
+                        instances, on the contrary, is closer to 0. The confidence levels for the uncertain speaker
+                        instances generally remain at the middle (average as 0.683 for 5 tests). That means speech
+                        instances of uncertain speakers may not be classified in an end-to-end approach by using our
+                        neural network classifier, but they can be determined from the dataset by thresholding the
+                        output confidence levels of the classifier.
                     </p>
-                    <figure>
-                        <img src='images/results_uncertain_tab.png' alt='uncertain result'>
-                        <figcaption>Confidence levels of each categorie (5 times results using VGG-S)
-                        </figcaption>
-                    </figure>
-                    <br/><br/><br/>
+                    <table class='table1' align="center">
+                        <tr>
+                          <th>Class</th>
+                          <th>Test 1</th>
+                          <th>Test 2</th>
+                          <th>Test 3</th>
+                          <th>Test 4</th>
+                          <th>Test 5</th>
+                          <th>Avg</th>
+                        </tr>
+                        <tr>
+                            <th>Target</th>
+                            <th>0.958</th>
+                            <th>0.828</th>
+                            <th>0.943</th>
+                            <th>0.908</th>
+                            <th>0.957</th>
+                            <th>0.919</th>
+                        </tr>
+                        <tr>
+                            <th>Background voice</th>
+                            <th>0.149</th>
+                            <th>0.281</th>
+                            <th>0.123</th>
+                            <th>0.242</th>
+                            <th>0.088</th>
+                            <th>0.177</th>
+                        </tr>
+                        <tr>
+                            <th>Uncertain</th>
+                            <th>0.692</th>
+                            <th>0.651</th>
+                            <th>0.696</th>
+                            <th>0.718</th>
+                            <th>0.658</th>
+                            <th>0.683</th>
+                        </tr>
+                    </table>
+                    <figure></figure>
+                    <figcaption>Table 3.&nbsp; Confidence levels of each categorie (5 times results using VGG-S)</figcaption>
+                    </div>
+                    <br/><br/>
+
+                    <div class="item">
+                    <h2>Discussions</h2>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        This project was inspired by our observations that annotation of real-world speech can be a
+                        quite time-consuming process, and of less reliability when dealing with complicated
+                        recording conditions. There has been prior work to help human annotation of audio, for
+                        example by visualizing the data. However, we by far have not seen any tools to help to
+                        discover speech data consisting of uncertain source components to the human listeners. Such
+                        uncertainty of data can bring challenges to the reliability of the ground truth, and therefore
+                        should be taken with extra steps or considerations in speech analysis. From our project, we
+                        explored hybrid methods to discover such instances, but the performance is still far from a
+                        perfect level. Since our goal is to enable more accurate annotation, it is required that the
+                        performance of our pipeline should also be as accurate as possible. There is still room to be 
+                        improved towards the goal of the project.
+                    </p>
+                    </div>
+                    <br/><br/>
+
+                    <div class="item">
                     <h2>Conclusions and Future Directions</h2>
                     <p style="text-align:justify"; text-justify:inter-ideograph;>
-                    First, we build an end-to-end model that can directly distinguish the target speakers data and the mixture speech data. However, Speech instances of uncertain speakers may not be classified from the dataset directly, but they can be discovered based on the output confidence of a voice classifier.
-                    In the future, we will work to build a more systematic and integral pipeline to determine such uncertain instances. We will also try to improve the performance of the models especially about classifying background voice and uncertain voice.
+                        In our work,  we explore automatic determination of common uncertain speech instances to
+                        human annotators from real-world collected audio. To this end, we first examined end-to-end
+                        classification methods to directly distinguish speech instances mixed with the target speech
+                        segments and the background voice. Our results showed that such mixed speech segments
+                        can be discovered directly based on a neural network classifier. In the next step, we examined
+                        determination of speech instances of uncertain speakers from the dataset. From our studies,
+                        we found that speech instances of uncertain speakers may not be classified from the dataset
+                        directly based on the neural network classifier, but they can be discovered based on the
+                        output confidence values of the classifier. In the future, we will work to build a more
+                        systematic and integral pipeline to determine such uncertain speech instances. We will also
+                        try to improve the performance of the models by testing varying architectures. We hope that
+                        our work can help to facilitate human annotation of real-world audio and to improve the 
+                        reliability of the ground truth. 
                     </p>
+                    </div>
+                    <br/><br/>
+
+                    <div class="item">
+                    <h2>References</h2>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [1] Wyatt, Danny, et al. "Towards the automated social analysis of situated speech data." Proceedings of the 10th international conference on Ubiquitous computing. 2008.
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [2] Schmid Mast, Marianne, et al. "Social sensing for psychology: Automated interpersonal behavior assessment." Current Directions in Psychological Science 24.2 (2015): 154-160.
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [3] Lukic, Yanick X., et al. "Learning embeddings for speaker clustering based on voice equality." 2017 IEEE 27th International Workshop on Machine Learning for Signal Processing (MLSP). IEEE, 2017.
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [4] Boakye, Kofi, et al. "Overlapped speech detection for improved speaker diarization in multiparty meetings." 2008 IEEE International Conference on Acoustics, Speech and Signal Processing. IEEE, 2008.
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [5] Chowdhury, Shammur Absar, Morena Danieli, and Giuseppe Riccardi. "Annotating and categorizing competition in overlap speech." 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2015.
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [6] Nadarajan, Amrutha, Krishna Somandepalli, and Shrikanth S. Narayanan. "Speaker agnostic foreground speech detection from audio recordings in workplace settings from wearable recorders." ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2019.   
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [7] Haubrick, Peter, and Juan Ye. "Robust Audio Sensing with Multi-Sound Classification." 2019 IEEE International Conference on Pervasive Computing and Communications (PerCom. IEEE, 2019).
+                    </p>
+                    <p style="text-align:justify"; text-justify:inter-ideograph;>
+                        [8] Andrei, Valentin, Horia Cucu, and Corneliu Burileanu. "Overlapped Speech Detection and Competing Speaker Counting–‐Humans Versus Deep Learning." IEEE Journal of Selected Topics in Signal Processing 13.4 (2019): 850-862.
+                    </p>
+                    </div>
+                    
                     <h3>Contact  Us</h3>
                         Dawei Liang  &nbsp  &nbsp Website: <a href="https://github.com/dawei-liang"> https://github.com/dawei-liang</a> <br/>
                         Guanyu zhang  &nbsp Website: <a href="https://github.com/guanyu-zhang">https://github.com/guanyu-zhang</a>
@@ -176,6 +427,14 @@
             <!-- Copyright © Dawei Liang <br> -->
             <font size = 2>Powered by <a  href="https://pages.github.com" >Github Pages</a> </font>
             </div>
+
+            <div class="bottom"></div>
+
         </div>
+
+        <script type="text/javascript">
+            $(".subnav").scrollTrack({end: ".bottom"});
+        </script>
+
     </body>
 </html>
