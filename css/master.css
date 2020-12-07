@@ -24,9 +24,9 @@ html, body {margin: 0;padding: 0;}
 #main-nav li#REPORT,
 #main-nav li#REPORT a { width: 200px; }
 #main-nav li#DATA,
-#main-nav li#DATA a { width: 200px; }
-#main-nav li#TEST,
-#main-nav li#TEST a { width: 90px; }
+#main-nav li#DATA a { width: 90px; }
+/* #main-nav li#TEST, */
+/* #main-nav li#TEST a { width: 90px; } */
 
 /* body.REPORT li#REPORT,
 body.REPORT li#REPORT a,

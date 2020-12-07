@@ -1,11 +1,3 @@
-/*
- * Name: scrollTrack
- * 
- * Description: Scroll Navigator Tracking, Monitoring and Fixed
- * Author: Gary Meng
- * Website: http://www.awaimai.com/
- */
-
 (function ($) {
     $.fn.scrollTrack = function (options) {
 	return this.each(function () {
